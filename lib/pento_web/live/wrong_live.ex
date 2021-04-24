@@ -19,6 +19,8 @@ defmodule PentoWeb.WrongLive do
         <a href="#" phx-click="guess" phx-value-number="<%= n %>"><%= n %></a>
       <% end %>
     </h2>
+
+    <button phx-click="reset-score">Reset score</button>
     """
   end
 
@@ -34,6 +36,10 @@ defmodule PentoWeb.WrongLive do
         score: next_score(is_correct, socket)
       )
     }
+  end
+
+  def handle_event("reset-score", _params, socket) do
+    {:noreply, assign(socket, message: "Guess a number.", score: 0)}
   end
 
   defp correct_score?(guess, actual), do: guess == actual
