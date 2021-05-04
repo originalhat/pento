@@ -8,6 +8,7 @@ defmodule Pento.Accounts.User do
     field :password, :string, virtual: true
     field :hashed_password, :string
     field :confirmed_at, :naive_datetime
+    field :username, :string
 
     timestamps()
   end
@@ -31,7 +32,7 @@ defmodule Pento.Accounts.User do
   """
   def registration_changeset(user, attrs, opts \\ []) do
     user
-    |> cast(attrs, [:email, :password])
+    |> cast(attrs, [:username, :email, :password])
     |> validate_email()
     |> validate_password(opts)
   end
@@ -42,7 +43,7 @@ defmodule Pento.Accounts.User do
     |> validate_format(:email, ~r/^[^\s]+@[^\s]+$/, message: "must have the @ sign and no spaces")
     |> validate_length(:email, max: 160)
     |> unsafe_validate_unique(:email, Pento.Repo)
-    |> unique_constraint(:email)
+    |> unique_constraint([:email])
   end
 
   defp validate_password(changeset, opts) do
