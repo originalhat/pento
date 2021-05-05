@@ -111,6 +111,19 @@ defmodule PentoWeb.UserAuth do
   @doc """
   Used for routes that require the user to not be authenticated.
   """
+  def redirect_to_app_if_authenticated(conn, _opts) do
+    if conn.assigns[:current_user] do
+      conn
+      |> redirect(to: "/guess")
+      |> halt()
+    else
+      conn
+    end
+  end
+
+  @doc """
+  Used for routes that require the user to not be authenticated.
+  """
   def redirect_if_user_is_authenticated(conn, _opts) do
     if conn.assigns[:current_user] do
       conn

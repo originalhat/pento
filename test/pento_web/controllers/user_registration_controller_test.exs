@@ -21,7 +21,6 @@ defmodule PentoWeb.UserRegistrationControllerTest do
   describe "POST /users/register" do
     @tag :capture_log
     test "creates account and logs the user in", %{conn: conn} do
-      email = unique_user_email()
       username = unique_username()
 
       conn =
@@ -32,8 +31,10 @@ defmodule PentoWeb.UserRegistrationControllerTest do
       assert get_session(conn, :user_token)
       assert redirected_to(conn) =~ "/"
 
-      # Now do a logged in request and assert on the menu
       conn = get(conn, "/")
+      assert redirected_to(conn) =~ "/guess"
+
+      conn = get(conn, "/guess")
       response = html_response(conn, 200)
       assert response =~ username
       assert response =~ "Settings</a>"
