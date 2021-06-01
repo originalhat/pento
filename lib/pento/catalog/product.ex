@@ -11,14 +11,14 @@ defmodule Pento.Catalog.Product do
     timestamps()
   end
 
-  def changeset(product, %{unit_price: _unit_price} = attrs) do
-    product
-    |> cast(attrs, [:unit_price])
-    |> validate_number(:unit_price, less_than: product.unit_price)
-    |> unique_constraint(:sku)
-  end
+  # FIXME: not matching on maps containing ONLY the unit_price
+  # def changeset(product, attrs = %{unit_price: _unit_price}) do
+  #   product
+  #   |> cast(attrs, [:unit_price])
+  #   |> validate_number(:unit_price, less_than: product.unit_price)
+  #   |> unique_constraint(:sku)
+  # end
 
-  @doc false
   def changeset(product, attrs) do
     product
     |> cast(attrs, [:name, :description, :unit_price, :sku])
