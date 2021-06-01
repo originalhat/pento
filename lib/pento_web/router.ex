@@ -76,6 +76,8 @@ defmodule PentoWeb.Router do
   scope "/", PentoWeb do
     pipe_through [:browser, :require_authenticated_user]
 
+    live "/promo", PromoLive
+
     live "/guess", WrongLive
 
     get "/users/settings", UserSettingsController, :edit
