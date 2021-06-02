@@ -7,5 +7,6 @@ defmodule Pento.Promo do
 
   def send_promo(_recipient, _attrs) do
     # send email to promo recipient
+    {:ok, %Recipient{}}
   end
 end
