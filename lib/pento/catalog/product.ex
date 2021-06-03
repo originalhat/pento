@@ -24,7 +24,16 @@ defmodule Pento.Catalog.Product do
     product
     |> cast(attrs, [:name, :description, :unit_price, :sku, :image_upload])
     |> validate_required([:name, :description, :unit_price, :sku])
-    |> validate_number(:unit_price, greater_than: 0.0)
+    |> validate_unit_price()
     |> unique_constraint(:sku)
+  end
+
+  defp validate_unit_price(%Ecto.Changeset{} = changeset) do
+    validate_change(changeset, :unit_price, fn :unit_price, value ->
+      case value < 0.0 do
+        true ->[{:unit_price, "The unit price must be greater than 0"}]
+        false -> []
+      end
+    end)
   end
 end
