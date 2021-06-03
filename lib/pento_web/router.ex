@@ -22,6 +22,12 @@ defmodule PentoWeb.Router do
 
     live "/", PageLive, :index
 
+    live "/promo", PromoLive
+
+    live "/guess", WrongLive
+
+    live "/search", SearchLive
+
     live "/products", ProductLive.Index, :index
     live "/products/new", ProductLive.Index, :new
     live "/products/:id/edit", ProductLive.Index, :edit
@@ -75,10 +81,6 @@ defmodule PentoWeb.Router do
 
   scope "/", PentoWeb do
     pipe_through [:browser, :require_authenticated_user]
-
-    live "/promo", PromoLive
-
-    live "/guess", WrongLive
 
     get "/users/settings", UserSettingsController, :edit
     put "/users/settings", UserSettingsController, :update
