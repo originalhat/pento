@@ -22,6 +22,12 @@
   <%= number_input f, :sku %>
   <%= error_tag f, :sku %>
 
+  <%= for entry <- @uploads.image.entries do %>
+    <p>
+      <%= entry.client_name %> - <%= entry.progress %>%
+    </p>
+  <% end %>
+
 
   <div phx-drop-target="<%= @uploads.image.ref %>">
     <%= hidden_input f, :image_upload %>

@@ -40,9 +40,6 @@ defmodule PentoWeb.ProductLive.FormComponent do
     if entry.done? do
       path = consume_uploaded_entry(socket, entry, &upload_static_file(&1, socket))
 
-      IO.inspect "################"
-      IO.inspect path
-
       {:noreply,
        socket
        |> put_flash(:info, "file #{entry.client_name} uploaded")
